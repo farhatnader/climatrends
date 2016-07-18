@@ -3,18 +3,22 @@
 <head>
 	<title>ClimaTrends</title>
 
-	<script src="https://d3js.org/d3.v4.min.js"></script>
+	<script src="https://d3js.org/d3.v3.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script src="settings.js"></script>
 	<script src="data.js"></script>
 	<script src="chart.js"></script>
 </head>
 
 <body>
-	<header id="header"></header>
-	<div id="wrapper"></div>
-
-	<script>
-		getData();
-	</script>
+	<center>
+		<form accept-charset=utf-8>
+			<input type="text" id="city" value="Enter a City" onfocus="this.value='';"></input>
+			<button type="button" onclick="prepareData()">Submit</button>
+		</form>
+		<header id="header">
+		</header>
+		<div id="wrapper"></div>
+	</center>
 </body>
 </html>

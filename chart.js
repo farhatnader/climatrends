@@ -1,16 +1,19 @@
 function createChart(data) {
+	d3.select("#wrapper").html('');
+
 	var margin = {top: 20, left: 70, right: 20, bottom: 150},
 		h = 480,
 		w = 500,
 		height = h - margin.top - margin.bottom,
-		width = w - margin.left - mergin.right;
+		width = w - margin.left - margin.right;
 
-	var xScale = d3.scale.linear
-		.domain(d3.range(0, data.length))
-        .rangeBands([0, width], .05);
+	var xScale = d3.scale.linear()
+		.domain([0, data.length - 1])
+        .range([0, width]);
 
-    var yScale = d3.scale.linear
-    	.domain([-125, 55])
+    var yScale = d3.scale.linear()
+    	.domain([d3.min(data, function(d) { return d.temperature; }) - 20, 
+    			 d3.max(data, function(d) { return d.temperature; }) + 20])
     	.range([height, 0]);
 
     var xAxis = d3.svg.axis()
@@ -32,7 +35,7 @@ function createChart(data) {
     		.attr('width', width)
     		.attr('height', height);
 
-    var dots = d3.selectAll("circle")
+    var dots = svg.selectAll("circle")
     	.data(data)
     	.enter()
     	.append("circle")
