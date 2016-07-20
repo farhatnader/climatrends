@@ -18,13 +18,14 @@ function createChart(data) {
 
     var xAxis = d3.svg.axis()
         .scale(xScale)
+        .tickFormat(function(d, i) { return data[i].year; })
         .orient("bottom")
         .ticks(8);
 
   	var yAxis = d3.svg.axis()
         .scale(yScale)
         .orient("left")
-        .ticks(3);
+        .ticks(5);
 
     var svg = d3.select("#wrapper")
     	.append("svg")
@@ -44,11 +45,12 @@ function createChart(data) {
     		.attr('cy', function(d) { return yScale(d.temperature); });
 
     svg.append("g")
-    	.attr('class', 'x-axis')
+    	.attr('class', 'x axis')
         .attr('transform', 'translate(0,' + (h - margin.bottom) + ')')
         .call(xAxis);
 
     svg.append("g")
     	.attr('class', 'y axis')
+        .attr('transform', 'translate(0,' + margin.top + ')')
         .call(yAxis);
 }

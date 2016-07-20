@@ -8,6 +8,7 @@
 	<script src="settings.js"></script>
 	<script src="data.js"></script>
 	<script src="chart.js"></script>
+	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
 <body>
@@ -33,9 +34,11 @@
 				address_components = location.results[0].address_components;
 				address_components.forEach(function(d) {
 					if (d.types[0] == 'administrative_area_level_2') {
-						$("#city").val(position.coords.latitude + ',' + position.coords.longitude);
-						$("#header").html(d.long_name);
+						$("#city").val(d.long_name)
+						// $("#city").val(position.coords.latitude + ',' + position.coords.longitude);
+						// $("#header").html(d.long_name);
 						prepareData();
+						return;
 					}
 				})
 			})

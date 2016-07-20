@@ -56,5 +56,5 @@ function prepareData() {
 		year--;
 	}
 	
-	createChart(climate_data);
+	createChart(climate_data.reverse());
 }
