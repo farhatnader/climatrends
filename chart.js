@@ -12,7 +12,8 @@ function createChart(data) {
         .range([0, width]);
 
     var yScale = d3.scale.linear()
-        .domain(d3.extent(data, function(d) { return d.temperature; }))
+        .domain([d3.min(data, function(d) { return d.temperature; }) - 20,
+                 d3.max(data, function(d) { return d.temperature; }) + 20])
         .range([height, 0]);
 
     var xAxis = d3.svg.axis()
@@ -60,5 +61,12 @@ function createChart(data) {
     svg.append("g")
         .attr('class', 'y axis')
         .attr('transform', 'translate(0,' + margin.top + ')')
-        .call(yAxis);
+        .call(yAxis)
+        .append("text")
+          .attr('transform', 'rotate(-90)')
+          .attr('y', -50)
+          .attr('x', (h - margin.bottom) / 2 * -1)
+          .attr('dy', '.3em')
+          .style('text-anchor', 'middle')
+          .text('Degree (C)');
 }

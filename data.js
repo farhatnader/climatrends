@@ -57,4 +57,5 @@ function prepareData() {
 	}
 	
 	createChart(climate_data.reverse());
+	$("header").html(month_name + ' ' + day);
 }
