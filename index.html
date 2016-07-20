@@ -16,9 +16,39 @@
 			<input type="text" id="city" value="Enter a City" onfocus="this.value='';"></input>
 			<button type="button" onclick="prepareData()">Submit</button>
 		</form>
-		<header id="header">
-		</header>
+		<header id="header"></header>
 		<div id="wrapper"></div>
 	</center>
+
+	<script>
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(getLocation);
+		}
+
+		function getLocation(position, error) {
+			var geo_call = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' 
+				+ position.coords.latitude + '%2C' + position.coords.longitude + '&language=en';
+
+			$.getJSON(geo_call).done(function(location) {
+				address_components = location.results[0].address_components;
+				address_components.forEach(function(d) {
+					if (d.types[0] == 'administrative_area_level_2') {
+						$("#city").val(position.coords.latitude + ',' + position.coords.longitude);
+						$("#header").html(d.long_name);
+						prepareData();
+					}
+				})
+			})
+		}
+
+		function error() {
+			location.reload();
+		}
+
+		// $.getJSON('http://api.ipify.org/?format=json').done(function(ip) {
+		// 	console.log(ip.ip);
+		// 	ip_address = ip.ip;
+		// });
+	</script>
 </body>
 </html>
